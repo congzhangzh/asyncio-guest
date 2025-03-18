@@ -7,7 +7,19 @@
 a. https://github.com/congzhangzh/webview_python
 b. https://github.com/congzhangzh/webview_python/issues/1
 
-### Design
+### Status
+| Framework | Windows | Linux | Mac |
+|------|---------|-------|-----|
+| tornado | ✅ | ✅ |❓|
+| pygame | ✅ | ✅ | ❓|
+| tkinter | ✅ | ✅ | ❓|
+| gtk | ❓ | ✅ | ❓|
+| qt5 | ✅ | ✅ | ❓|
+| win32 | ✅ | ➖ | ➖ |
+| pyside6 | ✅ | ✅ | ❓|
+
+### Design:
+./design_en.md
 
 ## Solution inspire by:
 1. https://www.electronjs.org/blog/electron-internals-node-integration
