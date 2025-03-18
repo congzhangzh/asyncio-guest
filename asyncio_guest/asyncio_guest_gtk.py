@@ -15,9 +15,10 @@
 # limitations under the License.
 #
 
-import sys
 from asyncio_guest_run import asyncio_guest_run, schedule_on_asyncio
+import asyncio_example_tasks
 
+import sys
 import traceback
 from functools import wraps
 
@@ -27,9 +28,6 @@ from gi import require_version
 require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 from outcome import Error
-
-import example_tasks
-
 
 class GtkHost:
     def run_sync_soon_threadsafe(self, fn):
@@ -86,10 +84,11 @@ def main(task):
         display,
         run_sync_soon_threadsafe=host.run_sync_soon_threadsafe,
         done_callback=host.done_callback,
-        host_uses_signal_set_wakeup_fd=True,
+        #TODO
+        #host_uses_signal_set_wakeup_fd=True,
     )
     host.mainloop()
 
 
 if __name__ == "__main__":
-    main(example_tasks.count)
+    main(asyncio_example_tasks.count)
