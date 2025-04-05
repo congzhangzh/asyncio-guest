@@ -27,7 +27,6 @@ import win32api
 import win32con
 import win32gui
 import win32ui
-from outcome import Error
 from pywin.mfc import dialog
 
 import asyncio_example_tasks
@@ -94,13 +93,15 @@ class Win32Host:
         trio_functions.put(func)
         win32api.PostMessage(self.msg_hwnd, ASYNCIO_MSG, 0, 0)
 
-    def done_callback(self, outcome):
+    def done_callback(self, result):
         """non-blocking request to end the main loop"""
-        print(f"Outcome: {outcome}")
-        print(f"大功告成: {outcome}")
-        if isinstance(outcome, Error):
-            exc = outcome.error
+        print(f"Main Task Result: {result}")
+        if isinstance(result, Exception):
+            exc=result
             traceback.print_exception(type(exc), exc, exc.__traceback__)
+            exitcode = 1
+        elif isinstance(result, BaseException):
+            # TODO: special case for asyncio.CancelledError and other BaseException?
             exitcode = 1
         else:
             exitcode = 0
@@ -197,11 +198,13 @@ def main(task):
     )
     host.mainloop()
 
-# async def async_main(display):
-#     await asyncio_example_tasks.count(display)
-#     await asyncio_example_tasks.get(display)
-#     await asyncio_example_tasks.check_latency(display)
+async def demo_task(display):
+    # await asyncio_example_tasks.count(display)
+    # await asyncio_example_tasks.get(display)
+    # await asyncio_example_tasks.check_latency(display)
+    raise Exception("test")
+    pass
 
 if __name__ == "__main__":
     print("For now only click buttons!")
-    main(asyncio_example_tasks.count)
+    main(demo_task)
