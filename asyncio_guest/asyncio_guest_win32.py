@@ -198,13 +198,6 @@ def main(task):
     )
     host.mainloop()
 
-async def demo_task(display):
-    # await asyncio_example_tasks.count(display)
-    # await asyncio_example_tasks.get(display)
-    # await asyncio_example_tasks.check_latency(display)
-    raise Exception("test")
-    pass
-
 if __name__ == "__main__":
     print("For now only click buttons!")
-    main(demo_task)
+    main(asyncio_example_tasks.count)
